@@ -6,6 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.preprocessing import PolynomialFeatures
+from xgboost import XGBRegressor
 from sklearn.metrics import mean_absolute_error, r2_score, mean_squared_error
 from sklearn.impute import SimpleImputer
 import joblib
@@ -83,6 +84,20 @@ class ModelPipeline:
                 ('imputer', SimpleImputer(strategy='mean')), 
                 ('poly_features', PolynomialFeatures(degree=2, include_bias=False)),
                 ('regressor', Ridge(alpha=1.0))
+            ]),
+            
+            "XGBoost": Pipeline([
+                ('imputer', SimpleImputer(strategy='mean')), 
+                ('regressor', XGBRegressor(
+                    n_estimators=200,
+                    learning_rate=0.1,
+                    max_depth=6,
+                    min_child_weight=1,
+                    subsample=0.8,
+                    colsample_bytree=0.8,
+                    random_state=42,
+                    verbosity=0
+                ))
             ])
         }
         

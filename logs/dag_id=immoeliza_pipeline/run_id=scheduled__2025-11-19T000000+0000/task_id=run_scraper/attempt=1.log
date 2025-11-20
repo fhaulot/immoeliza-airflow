@@ -1,0 +1,167 @@
+[2025-11-20T10:30:03.097+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-11-20T10:30:03.116+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: immoeliza_pipeline.run_scraper scheduled__2025-11-19T00:00:00+00:00 [queued]>
+[2025-11-20T10:30:03.126+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: immoeliza_pipeline.run_scraper scheduled__2025-11-19T00:00:00+00:00 [queued]>
+[2025-11-20T10:30:03.127+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 2
+[2025-11-20T10:30:03.140+0000] {taskinstance.py:2889} INFO - Executing <Task(DockerOperator): run_scraper> on 2025-11-19 00:00:00+00:00
+[2025-11-20T10:30:03.149+0000] {logging_mixin.py:190} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=201) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-11-20T10:30:03.151+0000] {standard_task_runner.py:72} INFO - Started process 202 to run task
+[2025-11-20T10:30:03.149+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'immoeliza_pipeline', 'run_scraper', 'scheduled__2025-11-19T00:00:00+00:00', '--job-id', '2', '--raw', '--subdir', 'DAGS_FOLDER/immoeliza_dag.py', '--cfg-path', '/tmp/tmpkc6arls0']
+[2025-11-20T10:30:03.152+0000] {standard_task_runner.py:105} INFO - Job 2: Subtask run_scraper
+[2025-11-20T10:30:03.218+0000] {task_command.py:467} INFO - Running <TaskInstance: immoeliza_pipeline.run_scraper scheduled__2025-11-19T00:00:00+00:00 [running]> on host 3aa706c10241
+[2025-11-20T10:30:03.320+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='immoeliza_pipeline' AIRFLOW_CTX_TASK_ID='run_scraper' AIRFLOW_CTX_EXECUTION_DATE='2025-11-19T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-11-19T00:00:00+00:00'
+[2025-11-20T10:30:03.321+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-11-20T10:30:03.453+0000] {docker.py:367} INFO - Starting docker container from image immoeliza-***-scraper:latest
+[2025-11-20T10:30:03.464+0000] {docker.py:375} WARNING - Using remote engine or docker-in-docker and mounting temporary volume from host is not supported. Falling back to `mount_tmp_dir=False` mode. You can set `mount_tmp_dir` parameter to False to disable mounting and remove the warning
+[2025-11-20T10:30:04.207+0000] {docker.py:438} INFO - 2025-11-20 10:30:04,204 - INFO - ================================================================================
+[2025-11-20T10:30:04.207+0000] {docker.py:438} INFO - 2025-11-20 10:30:04,204 - INFO - COMPLETE SCRAPER PIPELINE
+[2025-11-20T10:30:04.214+0000] {docker.py:438} INFO - 2025-11-20 10:30:04,204 - INFO - ================================================================================
+[2025-11-20T10:30:04.214+0000] {docker.py:438} INFO - 2025-11-20 10:30:04,204 - INFO - Running in TEST MODE (limited URLs and properties)
+[2025-11-20T10:30:04.215+0000] {docker.py:438} INFO - 2025-11-20 10:30:04,204 - INFO - ================================================================================
+[2025-11-20T10:30:04.215+0000] {docker.py:438} INFO - 2025-11-20 10:30:04,204 - INFO - PHASE 1: SCRAPING PROPERTY URLs
+[2025-11-20T10:30:04.216+0000] {docker.py:438} INFO - 2025-11-20 10:30:04,205 - INFO - ================================================================================
+[2025-11-20T10:30:05.629+0000] {docker.py:438} INFO - 2025-11-20 10:30:05,627 - INFO - Starting URL collection from Immovlan...
+[2025-11-20T10:30:06.547+0000] {docker.py:438} INFO - 2025-11-20 10:30:06,544 - INFO - patching driver executable /root/.local/share/undetected_chromedriver/undetected_chromedriver
+[2025-11-20T10:30:08.271+0000] {docker.py:438} INFO - 2025-11-20 10:30:08,268 - INFO - setting properties for headless
+[2025-11-20T10:30:17.130+0000] {docker.py:438} INFO - 2025-11-20 10:30:17,128 - INFO - Scraping houses in brussels...
+[2025-11-20T10:30:17.622+0000] {docker.py:438} INFO - 2025-11-20 10:30:17,618 - INFO -   Houses in brussels: Page 1 scraped. Total URLs: 15
+[2025-11-20T10:30:18.962+0000] {docker.py:438} INFO - 2025-11-20 10:30:18,961 - INFO -   Houses in brussels: Page 2 scraped. Total URLs: 35
+[2025-11-20T10:30:19.963+0000] {docker.py:438} INFO - 2025-11-20 10:30:19,961 - INFO - Finished houses in brussels. Total URLs: 35
+[2025-11-20T10:30:19.964+0000] {docker.py:438} INFO - 2025-11-20 10:30:19,961 - INFO - Scraping apartments in brussels...
+[2025-11-20T10:30:20.200+0000] {docker.py:438} INFO - 2025-11-20 10:30:20,198 - INFO -   Apartments in brussels: Page 1 scraped. Total URLs: 4
+[2025-11-20T10:30:21.576+0000] {docker.py:438} INFO - 2025-11-20 10:30:21,575 - INFO -   Apartments in brussels: Page 2 scraped. Total URLs: 5
+[2025-11-20T10:30:22.577+0000] {docker.py:438} INFO - 2025-11-20 10:30:22,575 - INFO - Finished apartments in brussels. Total URLs: 5
+[2025-11-20T10:30:22.578+0000] {docker.py:438} INFO - 2025-11-20 10:30:22,575 - INFO - Scraping houses in vlaams-brabant...
+[2025-11-20T10:30:22.901+0000] {docker.py:438} INFO - 2025-11-20 10:30:22,900 - INFO -   Houses in vlaams-brabant: Page 1 scraped. Total URLs: 13
+[2025-11-20T10:30:24.209+0000] {docker.py:438} INFO - 2025-11-20 10:30:24,207 - INFO -   Houses in vlaams-brabant: Page 2 scraped. Total URLs: 33
+[2025-11-20T10:30:25.210+0000] {docker.py:438} INFO - 2025-11-20 10:30:25,208 - INFO - Finished houses in vlaams-brabant. Total URLs: 33
+[2025-11-20T10:30:25.211+0000] {docker.py:438} INFO - 2025-11-20 10:30:25,208 - INFO - Scraping apartments in vlaams-brabant...
+[2025-11-20T10:30:25.455+0000] {docker.py:438} INFO - 2025-11-20 10:30:25,453 - INFO -   Apartments in vlaams-brabant: Page 1 scraped. Total URLs: 14
+[2025-11-20T10:30:26.852+0000] {docker.py:438} INFO - 2025-11-20 10:30:26,850 - INFO -   Apartments in vlaams-brabant: Page 2 scraped. Total URLs: 34
+[2025-11-20T10:30:27.854+0000] {docker.py:438} INFO - 2025-11-20 10:30:27,851 - INFO - Finished apartments in vlaams-brabant. Total URLs: 34
+[2025-11-20T10:30:27.855+0000] {docker.py:438} INFO - 2025-11-20 10:30:27,851 - INFO - Scraping houses in brabant-wallon...
+[2025-11-20T10:30:28.209+0000] {docker.py:438} INFO - 2025-11-20 10:30:28,208 - INFO -   Houses in brabant-wallon: Page 1 scraped. Total URLs: 19
+[2025-11-20T10:30:29.555+0000] {docker.py:438} INFO - 2025-11-20 10:30:29,553 - INFO -   Houses in brabant-wallon: Page 2 scraped. Total URLs: 39
+[2025-11-20T10:30:30.556+0000] {docker.py:438} INFO - 2025-11-20 10:30:30,554 - INFO - Finished houses in brabant-wallon. Total URLs: 39
+[2025-11-20T10:30:30.557+0000] {docker.py:438} INFO - 2025-11-20 10:30:30,554 - INFO - Scraping apartments in brabant-wallon...
+[2025-11-20T10:30:30.898+0000] {docker.py:438} INFO - 2025-11-20 10:30:30,896 - INFO -   Apartments in brabant-wallon: Page 1 scraped. Total URLs: 4
+[2025-11-20T10:30:32.329+0000] {docker.py:438} INFO - 2025-11-20 10:30:32,327 - INFO -   Apartments in brabant-wallon: Page 2 scraped. Total URLs: 22
+[2025-11-20T10:30:33.330+0000] {docker.py:438} INFO - 2025-11-20 10:30:33,328 - INFO - Finished apartments in brabant-wallon. Total URLs: 22
+[2025-11-20T10:30:33.331+0000] {docker.py:438} INFO - 2025-11-20 10:30:33,328 - INFO - Scraping houses in liège...
+[2025-11-20T10:30:33.762+0000] {docker.py:438} INFO - 2025-11-20 10:30:33,760 - INFO -   Houses in liège: Page 1 scraped. Total URLs: 16
+[2025-11-20T10:30:35.164+0000] {docker.py:438} INFO - 2025-11-20 10:30:35,162 - INFO -   Houses in liège: Page 2 scraped. Total URLs: 36
+[2025-11-20T10:30:36.164+0000] {docker.py:438} INFO - 2025-11-20 10:30:36,163 - INFO - Finished houses in liège. Total URLs: 36
+[2025-11-20T10:30:36.165+0000] {docker.py:438} INFO - 2025-11-20 10:30:36,163 - INFO - Scraping apartments in liège...
+[2025-11-20T10:30:36.462+0000] {docker.py:438} INFO - 2025-11-20 10:30:36,461 - INFO -   Apartments in liège: Page 1 scraped. Total URLs: 7
+[2025-11-20T10:30:37.818+0000] {docker.py:438} INFO - 2025-11-20 10:30:37,816 - INFO -   Apartments in liège: Page 2 scraped. Total URLs: 27
+[2025-11-20T10:30:38.819+0000] {docker.py:438} INFO - 2025-11-20 10:30:38,817 - INFO - Finished apartments in liège. Total URLs: 27
+[2025-11-20T10:30:38.821+0000] {docker.py:438} INFO - 2025-11-20 10:30:38,817 - INFO - Scraping houses in namur...
+[2025-11-20T10:30:39.136+0000] {docker.py:438} INFO - 2025-11-20 10:30:39,134 - INFO -   Houses in namur: Page 1 scraped. Total URLs: 17
+[2025-11-20T10:30:40.419+0000] {docker.py:438} INFO - 2025-11-20 10:30:40,417 - INFO -   Houses in namur: Page 2 scraped. Total URLs: 37
+[2025-11-20T10:30:41.420+0000] {docker.py:438} INFO - 2025-11-20 10:30:41,418 - INFO - Finished houses in namur. Total URLs: 37
+[2025-11-20T10:30:41.421+0000] {docker.py:438} INFO - 2025-11-20 10:30:41,418 - INFO - Scraping apartments in namur...
+[2025-11-20T10:30:41.711+0000] {docker.py:438} INFO - 2025-11-20 10:30:41,709 - INFO -   Apartments in namur: Page 1 scraped. Total URLs: 8
+[2025-11-20T10:30:43.136+0000] {docker.py:438} INFO - 2025-11-20 10:30:43,134 - INFO -   Apartments in namur: Page 2 scraped. Total URLs: 28
+[2025-11-20T10:30:44.137+0000] {docker.py:438} INFO - 2025-11-20 10:30:44,135 - INFO - Finished apartments in namur. Total URLs: 28
+[2025-11-20T10:30:44.138+0000] {docker.py:438} INFO - 2025-11-20 10:30:44,135 - INFO - Scraping houses in hainaut...
+[2025-11-20T10:30:44.422+0000] {docker.py:438} INFO - 2025-11-20 10:30:44,419 - INFO -   Houses in hainaut: Page 1 scraped. Total URLs: 18
+[2025-11-20T10:30:45.822+0000] {docker.py:438} INFO - 2025-11-20 10:30:45,820 - INFO -   Houses in hainaut: Page 2 scraped. Total URLs: 32
+[2025-11-20T10:30:46.824+0000] {docker.py:438} INFO - 2025-11-20 10:30:46,821 - INFO - Finished houses in hainaut. Total URLs: 32
+[2025-11-20T10:30:46.825+0000] {docker.py:438} INFO - 2025-11-20 10:30:46,821 - INFO - Scraping apartments in hainaut...
+[2025-11-20T10:30:47.124+0000] {docker.py:438} INFO - 2025-11-20 10:30:47,122 - INFO -   Apartments in hainaut: Page 1 scraped. Total URLs: 2
+[2025-11-20T10:30:48.409+0000] {docker.py:438} INFO - 2025-11-20 10:30:48,407 - INFO -   Apartments in hainaut: Page 2 scraped. Total URLs: 14
+[2025-11-20T10:30:49.409+0000] {docker.py:438} INFO - 2025-11-20 10:30:49,407 - INFO - Finished apartments in hainaut. Total URLs: 14
+[2025-11-20T10:30:49.410+0000] {docker.py:438} INFO - 2025-11-20 10:30:49,408 - INFO - Scraping houses in luxembourg...
+[2025-11-20T10:30:49.692+0000] {docker.py:438} INFO - 2025-11-20 10:30:49,690 - INFO -   Houses in luxembourg: Page 1 scraped. Total URLs: 18
+[2025-11-20T10:30:51.027+0000] {docker.py:438} INFO - 2025-11-20 10:30:51,025 - INFO -   Houses in luxembourg: Page 2 scraped. Total URLs: 38
+[2025-11-20T10:30:52.027+0000] {docker.py:438} INFO - 2025-11-20 10:30:52,025 - INFO - Finished houses in luxembourg. Total URLs: 38
+[2025-11-20T10:30:52.030+0000] {docker.py:438} INFO - 2025-11-20 10:30:52,026 - INFO - Scraping apartments in luxembourg...
+[2025-11-20T10:30:52.311+0000] {docker.py:438} INFO - 2025-11-20 10:30:52,309 - INFO -   Apartments in luxembourg: Page 1 scraped. Total URLs: 19
+[2025-11-20T10:30:53.609+0000] {docker.py:438} INFO - 2025-11-20 10:30:53,607 - INFO -   Apartments in luxembourg: Page 2 scraped. Total URLs: 39
+[2025-11-20T10:30:54.610+0000] {docker.py:438} INFO - 2025-11-20 10:30:54,608 - INFO - Finished apartments in luxembourg. Total URLs: 39
+[2025-11-20T10:30:54.611+0000] {docker.py:438} INFO - 2025-11-20 10:30:54,608 - INFO - Scraping houses in east-flanders...
+[2025-11-20T10:30:54.927+0000] {docker.py:438} INFO - 2025-11-20 10:30:54,925 - INFO -   Houses in east-flanders: Page 1 scraped. Total URLs: 6
+[2025-11-20T10:30:56.252+0000] {docker.py:438} INFO - 2025-11-20 10:30:56,250 - INFO -   Houses in east-flanders: Page 2 scraped. Total URLs: 6
+[2025-11-20T10:30:57.253+0000] {docker.py:438} INFO - 2025-11-20 10:30:57,251 - INFO - Finished houses in east-flanders. Total URLs: 6
+[2025-11-20T10:30:57.254+0000] {docker.py:438} INFO - 2025-11-20 10:30:57,251 - INFO - Scraping apartments in east-flanders...
+[2025-11-20T10:30:57.556+0000] {docker.py:438} INFO - 2025-11-20 10:30:57,554 - INFO -   Apartments in east-flanders: Page 1 scraped. Total URLs: 2
+[2025-11-20T10:30:58.865+0000] {docker.py:438} INFO - 2025-11-20 10:30:58,863 - INFO -   Apartments in east-flanders: Page 2 scraped. Total URLs: 7
+[2025-11-20T10:30:59.867+0000] {docker.py:438} INFO - 2025-11-20 10:30:59,864 - INFO - Finished apartments in east-flanders. Total URLs: 7
+[2025-11-20T10:30:59.868+0000] {docker.py:438} INFO - 2025-11-20 10:30:59,864 - INFO - Scraping houses in west-flanders...
+[2025-11-20T10:31:00.139+0000] {docker.py:438} INFO - 2025-11-20 10:31:00,137 - INFO -   Houses in west-flanders: Page 1 scraped. Total URLs: 14
+[2025-11-20T10:31:01.444+0000] {docker.py:438} INFO - 2025-11-20 10:31:01,442 - INFO -   Houses in west-flanders: Page 2 scraped. Total URLs: 32
+[2025-11-20T10:31:02.445+0000] {docker.py:438} INFO - 2025-11-20 10:31:02,443 - INFO - Finished houses in west-flanders. Total URLs: 32
+[2025-11-20T10:31:02.446+0000] {docker.py:438} INFO - 2025-11-20 10:31:02,443 - INFO - Scraping apartments in west-flanders...
+[2025-11-20T10:31:02.873+0000] {docker.py:438} INFO - 2025-11-20 10:31:02,872 - INFO -   Apartments in west-flanders: Page 1 scraped. Total URLs: 12
+[2025-11-20T10:31:04.256+0000] {docker.py:438} INFO - 2025-11-20 10:31:04,254 - INFO -   Apartments in west-flanders: Page 2 scraped. Total URLs: 12
+[2025-11-20T10:31:05.256+0000] {docker.py:438} INFO - 2025-11-20 10:31:05,254 - INFO - Finished apartments in west-flanders. Total URLs: 12
+[2025-11-20T10:31:05.257+0000] {docker.py:438} INFO - 2025-11-20 10:31:05,254 - INFO - Scraping houses in limburg...
+[2025-11-20T10:31:05.553+0000] {docker.py:438} INFO - 2025-11-20 10:31:05,551 - INFO -   Houses in limburg: Page 1 scraped. Total URLs: 17
+[2025-11-20T10:31:06.943+0000] {docker.py:438} INFO - 2025-11-20 10:31:06,941 - INFO -   Houses in limburg: Page 2 scraped. Total URLs: 37
+[2025-11-20T10:31:07.944+0000] {docker.py:438} INFO - 2025-11-20 10:31:07,942 - INFO - Finished houses in limburg. Total URLs: 37
+[2025-11-20T10:31:07.945+0000] {docker.py:438} INFO - 2025-11-20 10:31:07,942 - INFO - Scraping apartments in limburg...
+[2025-11-20T10:31:08.264+0000] {docker.py:438} INFO - 2025-11-20 10:31:08,263 - INFO -   Apartments in limburg: Page 1 scraped. Total URLs: 13
+[2025-11-20T10:31:09.661+0000] {docker.py:438} INFO - 2025-11-20 10:31:09,659 - INFO -   Apartments in limburg: Page 2 scraped. Total URLs: 33
+[2025-11-20T10:31:10.662+0000] {docker.py:438} INFO - 2025-11-20 10:31:10,660 - INFO - Finished apartments in limburg. Total URLs: 33
+[2025-11-20T10:31:10.663+0000] {docker.py:438} INFO - 2025-11-20 10:31:10,660 - INFO - Scraping finished. Total unique URLs collected: 546
+[2025-11-20T10:31:10.663+0000] {docker.py:438} INFO - 2025-11-20 10:31:10,661 - INFO - URLs saved to /app/data/immovlan_sales_urls.txt
+[2025-11-20T10:31:10.664+0000] {docker.py:438} INFO - 2025-11-20 10:31:10,661 - INFO - ✓ Phase 1 complete: 546 URLs collected
+[2025-11-20T10:31:10.664+0000] {docker.py:438} INFO - 2025-11-20 10:31:10,661 - INFO - ================================================================================
+[2025-11-20T10:31:10.665+0000] {docker.py:438} INFO - 2025-11-20 10:31:10,661 - INFO - PHASE 2: SCRAPING PROPERTY DETAILS
+[2025-11-20T10:31:10.666+0000] {docker.py:438} INFO - 2025-11-20 10:31:10,661 - INFO - ================================================================================
+[2025-11-20T10:31:12.650+0000] {docker.py:438} INFO - 2025-11-20 10:31:12,641 - INFO - Starting property details scraping...
+[2025-11-20T10:31:12.652+0000] {docker.py:438} INFO - 2025-11-20 10:31:12,642 - INFO - Loaded 546 URLs from /app/data/immovlan_sales_urls.txt
+[2025-11-20T10:31:12.654+0000] {docker.py:438} INFO - 2025-11-20 10:31:12,642 - INFO - === RUNNING IN TEST MODE (first 50 properties) ===
+[2025-11-20T10:31:12.655+0000] {docker.py:438} INFO - 2025-11-20 10:31:12,643 - INFO - Processing batch 1: properties 1-10 of 10
+[2025-11-20T10:31:12.656+0000] {docker.py:438} INFO - 2025-11-20 10:31:12,643 - INFO - Scraping property 1/10: https://immovlan.be/en/detail/apartment/for-sale/5000/namur/vbd54291
+[2025-11-20T10:31:13.057+0000] {docker.py:438} INFO - 2025-11-20 10:31:13,055 - INFO -   ✓ Success: Price=315000.0€, Postal=5000, Bedrooms=2.0, Surface=90.0m²
+[2025-11-20T10:31:16.044+0000] {docker.py:438} INFO - 2025-11-20 10:31:16,042 - INFO - Scraping property 2/10: https://immovlan.be/en/detail/master-house/for-sale/7711/dottignies/vbd52352
+[2025-11-20T10:31:16.352+0000] {docker.py:438} INFO - 2025-11-20 10:31:16,350 - INFO -   ✓ Success: Price=278000.0€, Postal=7711, Bedrooms=4.0, Surface=187.0m²
+[2025-11-20T10:31:18.072+0000] {docker.py:438} INFO - 2025-11-20 10:31:18,070 - INFO - Scraping property 3/10: https://immovlan.be/en/detail/residence/for-sale/3770/riemst/rbu73267
+[2025-11-20T10:31:18.434+0000] {docker.py:438} INFO - 2025-11-20 10:31:18,432 - INFO -   ✓ Success: Price=265000.0€, Postal=3770, Bedrooms=4.0, Surface=308.0m²
+[2025-11-20T10:31:19.624+0000] {docker.py:438} INFO - 2025-11-20 10:31:19,622 - INFO - Scraping property 4/10: https://immovlan.be/en/detail/residence/for-sale/3550/heusden-zolder/rbu72582
+[2025-11-20T10:31:19.939+0000] {docker.py:438} INFO - 2025-11-20 10:31:19,937 - INFO -   ✓ Success: Price=340000.0€, Postal=3550, Bedrooms=3.0, Surface=141.0m²
+[2025-11-20T10:31:21.886+0000] {docker.py:438} INFO - 2025-11-20 10:31:21,885 - INFO - Scraping property 5/10: https://immovlan.be/en/detail/mixed-building/for-sale/6040/jumet/vbd52950
+[2025-11-20T10:31:22.222+0000] {docker.py:438} INFO - 2025-11-20 10:31:22,220 - INFO -   ✓ Success: Price=299000.0€, Postal=6040, Bedrooms=3.0, Surface=410.0m²
+[2025-11-20T10:31:24.617+0000] {docker.py:438} INFO - 2025-11-20 10:31:24,615 - INFO - Scraping property 6/10: https://immovlan.be/en/detail/mixed-building/for-sale/6852/maissin/vwd15736
+[2025-11-20T10:31:24.970+0000] {docker.py:438} INFO - 2025-11-20 10:31:24,968 - INFO -   ✓ Success: Price=950000.0€, Postal=6852, Bedrooms=10.0, Surface=710.0m²
+[2025-11-20T10:31:26.971+0000] {docker.py:438} INFO - 2025-11-20 10:31:26,969 - INFO - Scraping property 7/10: https://immovlan.be/en/detail/residence/for-sale/1070/anderlecht/vbd54627
+[2025-11-20T10:31:27.259+0000] {docker.py:438} INFO - 2025-11-20 10:31:27,257 - INFO -   ✓ Success: Price=415000.0€, Postal=1070, Bedrooms=3.0, Surface=150.0m²
+[2025-11-20T10:31:28.346+0000] {docker.py:438} INFO - 2025-11-20 10:31:28,343 - INFO - Scraping property 8/10: https://immovlan.be/en/detail/residence/for-sale/6850/paliseul/vbd51340
+[2025-11-20T10:31:28.693+0000] {docker.py:438} INFO - 2025-11-20 10:31:28,690 - INFO -   ✓ Success: Price=139000.0€, Postal=6850, Bedrooms=2.0, Surface=62.0m²
+[2025-11-20T10:31:29.697+0000] {docker.py:438} INFO - 2025-11-20 10:31:29,694 - INFO - Scraping property 9/10: https://immovlan.be/en/detail/apartment/for-sale/6700/arlon/vbd45653
+[2025-11-20T10:31:29.985+0000] {docker.py:438} INFO - 2025-11-20 10:31:29,983 - INFO -   ✓ Success: Price=319000.0€, Postal=6700, Bedrooms=2.0, Surface=144.0m²
+[2025-11-20T10:31:32.281+0000] {docker.py:438} INFO - 2025-11-20 10:31:32,280 - INFO - Scraping property 10/10: https://immovlan.be/en/detail/villa/for-sale/4860/pepinster/vbd54767
+[2025-11-20T10:31:32.872+0000] {docker.py:438} INFO - 2025-11-20 10:31:32,870 - INFO -   ✓ Success: Price=639000.0€, Postal=4860, Bedrooms=3.0, Surface=320.0m²
+[2025-11-20T10:31:35.723+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,721 - INFO - Batch saved to /app/data/immovlan_scraped_data.csv: 10 properties
+[2025-11-20T10:31:35.724+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,721 - INFO - Progress: 10/10 URLs processed
+[2025-11-20T10:31:35.725+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,722 - INFO - 
+[2025-11-20T10:31:35.725+0000] {docker.py:438} INFO - === SCRAPING COMPLETED ===
+[2025-11-20T10:31:35.726+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,722 - INFO - Total properties scraped: 10
+[2025-11-20T10:31:35.726+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,722 - INFO - Success rate: 10/10 (100.0%)
+[2025-11-20T10:31:35.727+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,722 - INFO - Data saved to: /app/data/immovlan_scraped_data.csv
+[2025-11-20T10:31:35.727+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,722 - INFO - 
+[2025-11-20T10:31:35.728+0000] {docker.py:438} INFO - Columns: ['id', 'url', 'type', 'subtype', 'bedroomCount', 'province', 'locality', 'postCode', 'habitableSurface', 'buildingCondition', 'hasGarden', 'gardenSurface', 'hasTerrace', 'epcScore', 'price', 'hasParking', 'MunicipalityCleanName', 'region', 'price_square_meter']
+[2025-11-20T10:31:35.729+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,722 - INFO - Sample data:
+[2025-11-20T10:31:35.733+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,732 - INFO -            id                                                                            url       type    subtype  bedroomCount province locality  postCode  habitableSurface buildingCondition  hasGarden  gardenSurface  hasTerrace epcScore     price  hasParking MunicipalityCleanName    region  price_square_meter
+[2025-11-20T10:31:35.734+0000] {docker.py:438} INFO - 0  46679781.0           https://immovlan.be/en/detail/apartment/for-sale/5000/namur/vbd54291  APARTMENT  APARTMENT           2.0    Namur     5000      5000              90.0              None          0            0.0           1        D  315000.0           0                  5000  Wallonia         3500.000000
+[2025-11-20T10:31:35.736+0000] {docker.py:438} INFO - 1  95585737.0   https://immovlan.be/en/detail/master-house/for-sale/7711/dottignies/vbd52352      HOUSE      HOUSE           4.0  Hainaut     7711      7711             187.0              None          0            0.0           1        C  278000.0           0                  7711  Wallonia         1486.631016
+[2025-11-20T10:31:35.736+0000] {docker.py:438} INFO - 2  35259281.0          https://immovlan.be/en/detail/residence/for-sale/3770/riemst/rbu73267      HOUSE      HOUSE           4.0  Limburg     3770      3770             308.0              None          0            0.0           1        D  265000.0           0                  3770  Flanders          860.389610
+[2025-11-20T10:31:35.737+0000] {docker.py:438} INFO - 3  27803562.0  https://immovlan.be/en/detail/residence/for-sale/3550/heusden-zolder/rbu72582      HOUSE      HOUSE           3.0  Limburg     3550      3550             141.0              None          0            0.0           1        C  340000.0           1                  3550  Flanders         2411.347518
+[2025-11-20T10:31:35.738+0000] {docker.py:438} INFO - 4  26598263.0      https://immovlan.be/en/detail/mixed-building/for-sale/6040/jumet/vbd52950      HOUSE      HOUSE           3.0  Hainaut     6040      6040             410.0              None          1           39.0           1        D  299000.0           0                  6040  Wallonia          729.268293
+[2025-11-20T10:31:35.739+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,732 - INFO - 
+[2025-11-20T10:31:35.739+0000] {docker.py:438} INFO - Data quality:
+[2025-11-20T10:31:35.740+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,733 - INFO - Properties with price: 10
+[2025-11-20T10:31:35.741+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,733 - INFO - Properties with surface: 10
+[2025-11-20T10:31:35.742+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,733 - INFO - Properties with bedrooms: 10
+[2025-11-20T10:31:35.742+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,734 - INFO - Properties with EPC: 9
+[2025-11-20T10:31:35.743+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,734 - INFO - ✓ Phase 2 complete: Property details scraped
+[2025-11-20T10:31:35.744+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,734 - INFO - ================================================================================
+[2025-11-20T10:31:35.744+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,736 - INFO - SCRAPER PIPELINE COMPLETED SUCCESSFULLY
+[2025-11-20T10:31:35.745+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,736 - INFO - ================================================================================
+[2025-11-20T10:31:35.746+0000] {docker.py:438} INFO - Cookie button not found or already accepted.
+[2025-11-20T10:31:35.747+0000] {docker.py:438} INFO - 2025-11-20 10:31:35,736 - INFO - ensuring close
+[2025-11-20T10:31:37.024+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-11-20T10:31:37.025+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=immoeliza_pipeline, task_id=run_scraper, run_id=scheduled__2025-11-19T00:00:00+00:00, execution_date=20251119T000000, start_date=20251120T103003, end_date=20251120T103137
+[2025-11-20T10:31:37.090+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-11-20T10:31:37.149+0000] {taskinstance.py:3895} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-11-20T10:31:37.153+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

@@ -56,9 +56,7 @@ with DAG(
         mounts=[
             Mount(source='immoeliza-airflow_data', target='/app/data', type='volume'),
             Mount(source='immoeliza-airflow_model-data', target='/app/model/processed_data', type='volume'),
-            # We might want to mount trained_models to a volume too if we want persistence beyond the container
-            # But for now, let's assume the user wants to keep it simple or uses the bind mounts in dev
-            # In this DAG context, we are using named volumes for data persistence between tasks
+            Mount(source='immoeliza-airflow_trained-models', target='/app/model/trained_models', type='volume'),
         ],
         execution_timeout=timedelta(hours=1),
         force_pull=False,

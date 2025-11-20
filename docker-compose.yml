@@ -45,8 +45,8 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./model/trained_models:/app/model/trained_models
-      - ./model/processed_data:/app/model/processed_data
+      - trained-models:/app/model/trained_models
+      - model-data:/app/model/processed_data
     environment:
       - PYTHONUNBUFFERED=1
     networks:
@@ -98,6 +98,7 @@ services:
     build:
       context: .
       dockerfile: airflow/Dockerfile
+    command: webserver
     restart: always
     depends_on:
       postgres:
@@ -127,6 +128,7 @@ services:
     build:
       context: .
       dockerfile: airflow/Dockerfile
+    command: scheduler
     restart: always
     depends_on:
       postgres:
@@ -179,4 +181,5 @@ networks:
 volumes:
   data:
   model-data:
+  trained-models:
   postgres-db-volume:
