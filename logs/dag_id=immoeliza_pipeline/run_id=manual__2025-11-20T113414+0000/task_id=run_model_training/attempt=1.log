@@ -1,0 +1,179 @@
+[2025-11-20T11:35:51.952+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-11-20T11:35:51.974+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: immoeliza_pipeline.run_model_training manual__2025-11-20T11:34:14+00:00 [queued]>
+[2025-11-20T11:35:51.984+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: immoeliza_pipeline.run_model_training manual__2025-11-20T11:34:14+00:00 [queued]>
+[2025-11-20T11:35:51.985+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 2
+[2025-11-20T11:35:52.000+0000] {taskinstance.py:2889} INFO - Executing <Task(DockerOperator): run_model_training> on 2025-11-20 11:34:14+00:00
+[2025-11-20T11:35:52.012+0000] {logging_mixin.py:190} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=622) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-11-20T11:35:52.011+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'immoeliza_pipeline', 'run_model_training', 'manual__2025-11-20T11:34:14+00:00', '--job-id', '16', '--raw', '--subdir', 'DAGS_FOLDER/immoeliza_dag.py', '--cfg-path', '/tmp/tmp52xo0amb']
+[2025-11-20T11:35:52.015+0000] {standard_task_runner.py:72} INFO - Started process 623 to run task
+[2025-11-20T11:35:52.015+0000] {standard_task_runner.py:105} INFO - Job 16: Subtask run_model_training
+[2025-11-20T11:35:52.081+0000] {task_command.py:467} INFO - Running <TaskInstance: immoeliza_pipeline.run_model_training manual__2025-11-20T11:34:14+00:00 [running]> on host 3aa706c10241
+[2025-11-20T11:35:52.177+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='immoeliza_pipeline' AIRFLOW_CTX_TASK_ID='run_model_training' AIRFLOW_CTX_EXECUTION_DATE='2025-11-20T11:34:14+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-11-20T11:34:14+00:00'
+[2025-11-20T11:35:52.179+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-11-20T11:35:52.287+0000] {docker.py:367} INFO - Starting docker container from image immoeliza-***-model-training:latest
+[2025-11-20T11:35:52.297+0000] {docker.py:375} WARNING - Using remote engine or docker-in-docker and mounting temporary volume from host is not supported. Falling back to `mount_tmp_dir=False` mode. You can set `mount_tmp_dir` parameter to False to disable mounting and remove the warning
+[2025-11-20T11:35:55.620+0000] {docker.py:438} INFO - 2025-11-20 11:35:55,618 - matplotlib.font_manager - INFO - generated new fontManager
+[2025-11-20T11:35:59.075+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,073 - ImmoEliza-Training - INFO - STARTING PRODUCTION TRAINING PIPELINE
+[2025-11-20T11:35:59.075+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,073 - ImmoEliza-Training - INFO - STEP 1: Analysis Preprocessing
+[2025-11-20T11:35:59.076+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,073 - analyse.Preprocessing - INFO - === Starting Analysis Preprocessing Pipeline ===
+[2025-11-20T11:35:59.080+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,077 - analyse.Preprocessing - INFO - Loaded dataset with shape: (10, 20)
+[2025-11-20T11:35:59.082+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,078 - analyse.Preprocessing - INFO - Columns: ['id', 'url', 'type', 'subtype', 'bedroomCount', 'province', 'locality', 'postCode', 'habitableSurface', 'buildingCondition', 'hasGarden', 'gardenSurface', 'hasTerrace', 'epcScore', 'price', 'hasParking', 'MunicipalityCleanName', 'region', 'price_square_meter', 'last_seen']
+[2025-11-20T11:35:59.087+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,085 - analyse.Preprocessing - INFO - Starting initial data cleaning...
+[2025-11-20T11:35:59.088+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,086 - analyse.Preprocessing - INFO - Removed 0 rows with missing price or postal code
+[2025-11-20T11:35:59.089+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,087 - analyse.Preprocessing - INFO - Removed price outliers, remaining rows: 10
+[2025-11-20T11:35:59.089+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,087 - analyse.Preprocessing - INFO - Removed surface outliers, remaining rows: 10
+[2025-11-20T11:35:59.090+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,088 - analyse.Preprocessing - INFO - Removed bedroom outliers, remaining rows: 10
+[2025-11-20T11:35:59.090+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,088 - analyse.Preprocessing - INFO - Handling missing values...
+[2025-11-20T11:35:59.099+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1214: RuntimeWarning: Mean of empty slice
+[2025-11-20T11:35:59.100+0000] {docker.py:438} INFO -   return np.nanmean(a, axis, out=out, keepdims=keepdims)
+[2025-11-20T11:35:59.107+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,105 - analyse.Preprocessing - INFO - Adding derived features...
+[2025-11-20T11:35:59.111+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,109 - analyse.Preprocessing - INFO - Applied ordinal encoding to building condition
+[2025-11-20T11:35:59.113+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,111 - analyse.Preprocessing - INFO - Applied ordinal encoding to EPC score
+[2025-11-20T11:35:59.119+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,117 - analyse.Preprocessing - INFO - Applied one-hot encoding to: ['province', 'subtype', 'type', 'region']
+[2025-11-20T11:35:59.120+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,117 - analyse.Preprocessing - INFO - Preparing data for analysis...
+[2025-11-20T11:35:59.120+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,118 - analyse.Preprocessing - INFO - Prepared analysis dataset with 23 columns
+[2025-11-20T11:35:59.121+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,118 - analyse.Preprocessing - INFO - Final shape: (10, 23)
+[2025-11-20T11:35:59.124+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,122 - analyse.Preprocessing - INFO - Analysis-ready data saved to: /app/analyse/processed_for_analysis.csv
+[2025-11-20T11:35:59.125+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,123 - ImmoEliza-Training - INFO - Analysis preprocessing complete. Output shape: (10, 23)
+[2025-11-20T11:35:59.125+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,123 - ImmoEliza-Training - INFO - STEP 2: Model Preprocessing
+[2025-11-20T11:35:59.126+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,123 - model.Preprocessing - INFO - === Starting Model Preprocessing Pipeline ===
+[2025-11-20T11:35:59.127+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,125 - model.Preprocessing - INFO - Loaded dataset with shape: (10, 20)
+[2025-11-20T11:35:59.128+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,125 - model.Preprocessing - INFO - Columns: ['id', 'url', 'type', 'subtype', 'bedroomCount', 'province', 'locality', 'postCode', 'habitableSurface', 'buildingCondition', 'hasGarden', 'gardenSurface', 'hasTerrace', 'epcScore', 'price', 'hasParking', 'MunicipalityCleanName', 'region', 'price_square_meter', 'last_seen']
+[2025-11-20T11:35:59.129+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,125 - model.Preprocessing - INFO - Starting model-specific data cleaning...
+[2025-11-20T11:35:59.130+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,127 - model.Preprocessing - INFO - Removed 1 rows with missing critical data
+[2025-11-20T11:35:59.130+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,128 - model.Preprocessing - INFO - Applied strict price filtering, remaining rows: 9
+[2025-11-20T11:35:59.131+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,128 - model.Preprocessing - INFO - Applied strict surface filtering, remaining rows: 9
+[2025-11-20T11:35:59.132+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,129 - model.Preprocessing - INFO - Applied bedroom filtering, remaining rows: 9
+[2025-11-20T11:35:59.132+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,131 - model.Preprocessing - INFO - Removed price/sqm outliers, remaining rows: 7
+[2025-11-20T11:35:59.133+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,132 - model.Preprocessing - INFO - Applied ordinal encoding to building condition
+[2025-11-20T11:35:59.134+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,133 - model.Preprocessing - INFO - Applied ordinal encoding to EPC score
+[2025-11-20T11:35:59.134+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,133 - model.Preprocessing - INFO - Preparing features for ML model...
+[2025-11-20T11:35:59.138+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,136 - model.Preprocessing - INFO - Selected 7 numeric and 6 categorical features
+[2025-11-20T11:35:59.138+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,136 - model.Preprocessing - INFO - Feature columns: ['habitableSurface', 'bedroomCount', 'postCode', 'hasGarden', 'gardenSurface', 'hasTerrace', 'hasParking', 'type', 'subtype', 'province', 'region', 'buildingCondition', 'epcScore']
+[2025-11-20T11:35:59.139+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,137 - model.Preprocessing - INFO - Encoding categorical columns: ['type', 'subtype', 'province', 'region']
+[2025-11-20T11:35:59.143+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,141 - model.Preprocessing - INFO - Final encoded shape: (7, 21)
+[2025-11-20T11:35:59.145+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,144 - model.Preprocessing - INFO - Train set shape: (5, 21)
+[2025-11-20T11:35:59.146+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,144 - model.Preprocessing - INFO - Test set shape: (2, 21)
+[2025-11-20T11:35:59.148+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,146 - model.Preprocessing - INFO - Fitted scaler on training data
+[2025-11-20T11:35:59.152+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,150 - model.Preprocessing - INFO - Saved scaler to /app/model/processed_data/scaler.pkl
+[2025-11-20T11:35:59.153+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,151 - model.Preprocessing - INFO - Saved feature columns to /app/model/processed_data/feature_columns.csv
+[2025-11-20T11:35:59.153+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,152 - model.Preprocessing - INFO - Model-ready data saved to: /app/model/processed_data
+[2025-11-20T11:35:59.154+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,152 - model.Preprocessing - INFO - Final feature count: 21
+[2025-11-20T11:35:59.155+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,152 - ImmoEliza-Training - INFO - Model preprocessing complete.
+[2025-11-20T11:35:59.155+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,152 - ImmoEliza-Training - INFO - Training set: (5, 21), Test set: (2, 21)
+[2025-11-20T11:35:59.156+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,152 - ImmoEliza-Training - INFO - STEP 3: Model Training
+[2025-11-20T11:35:59.157+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,152 - model.pipeline - INFO - Created 6 model pipelines
+[2025-11-20T11:35:59.157+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,152 - model.pipeline - INFO - Training and evaluating models...
+[2025-11-20T11:35:59.157+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,152 - model.pipeline - INFO - Training Linear Regression...
+[2025-11-20T11:35:59.169+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.170+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.176+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.177+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.184+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.185+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.192+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.193+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.198+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.199+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.200+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,197 - model.pipeline - INFO -   Linear Regression - Test R²: 0.6145, Test MAE: 60150
+[2025-11-20T11:35:59.201+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,197 - model.pipeline - INFO - Training Ridge Regression...
+[2025-11-20T11:35:59.217+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.218+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.222+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.222+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.229+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.230+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.235+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.235+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.240+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.240+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.241+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,239 - model.pipeline - INFO -   Ridge Regression - Test R²: 0.6346, Test MAE: 59584
+[2025-11-20T11:35:59.241+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,239 - model.pipeline - INFO - Training Random Forest...
+[2025-11-20T11:35:59.425+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.427+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.511+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.512+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.606+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.607+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.708+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.709+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.800+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.800+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.801+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,798 - model.pipeline - INFO -   Random Forest - Test R²: -0.1665, Test MAE: 100087
+[2025-11-20T11:35:59.801+0000] {docker.py:438} INFO - 2025-11-20 11:35:59,798 - model.pipeline - INFO - Training Gradient Boosting...
+[2025-11-20T11:35:59.892+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.893+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:35:59.946+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:35:59.946+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.016+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.019+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.121+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.122+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.171+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.171+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.172+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,170 - model.pipeline - INFO -   Gradient Boosting - Test R²: 0.5157, Test MAE: 52270
+[2025-11-20T11:36:00.172+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,170 - model.pipeline - INFO - Training Polynomial Regression...
+[2025-11-20T11:36:00.187+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.187+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.192+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.193+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.199+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.200+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.204+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.205+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.210+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.212+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.212+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,209 - model.pipeline - INFO -   Polynomial Regression - Test R²: -18.6434, Test MAE: 346858
+[2025-11-20T11:36:00.213+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,209 - model.pipeline - INFO - Training XGBoost...
+[2025-11-20T11:36:00.410+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.411+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.487+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.487+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.575+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.576+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.657+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.657+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.795+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/sklearn/metrics/_regression.py:1283: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
+[2025-11-20T11:36:00.796+0000] {docker.py:438} INFO -   warnings.warn(msg, UndefinedMetricWarning)
+[2025-11-20T11:36:00.796+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,794 - model.pipeline - INFO -   XGBoost - Test R²: 0.5869, Test MAE: 62858
+[2025-11-20T11:36:00.797+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,795 - model.pipeline - INFO - Best model: Ridge Regression with R² = 0.6346
+[2025-11-20T11:36:00.798+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,795 - ImmoEliza-Training - INFO - Model training complete. Best model: Ridge Regression
+[2025-11-20T11:36:00.798+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,796 - model.pipeline - INFO - Saved best model (Ridge Regression) to /app/model/trained_models/best_model.pkl
+[2025-11-20T11:36:00.799+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,798 - model.pipeline - INFO - Saved model metadata to /app/model/trained_models/model_metadata.csv
+[2025-11-20T11:36:00.832+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,831 - model.pipeline - INFO - Saved all models to /app/model/trained_models/all_models
+[2025-11-20T11:36:00.833+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,832 - model.pipeline - INFO - Saved detailed results to /app/model/trained_models/detailed_results.csv
+[2025-11-20T11:36:00.834+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,832 - ImmoEliza-Training - INFO - Models saved to /app/model/trained_models
+[2025-11-20T11:36:00.834+0000] {docker.py:438} INFO - 2025-11-20 11:36:00,832 - ImmoEliza-Training - INFO - TRAINING PIPELINE COMPLETED SUCCESSFULLY
+[2025-11-20T11:36:00.835+0000] {docker.py:438} INFO - <class 'pandas.core.frame.DataFrame'>
+[2025-11-20T11:36:00.835+0000] {docker.py:438} INFO - RangeIndex: 10 entries, 0 to 9
+[2025-11-20T11:36:00.835+0000] {docker.py:438} INFO - Data columns (total 20 columns):
+[2025-11-20T11:36:00.836+0000] {docker.py:438} INFO -  #   Column                 Non-Null Count  Dtype  
+[2025-11-20T11:36:00.836+0000] {docker.py:438} INFO - ---  ------                 --------------  -----  
+[2025-11-20T11:36:00.837+0000] {docker.py:438} INFO -  0   id                     10 non-null     float64
+[2025-11-20T11:36:00.837+0000] {docker.py:438} INFO -  1   url                    10 non-null     object 
+[2025-11-20T11:36:00.837+0000] {docker.py:438} INFO -  2   type                   10 non-null     object 
+[2025-11-20T11:36:00.838+0000] {docker.py:438} INFO -  3   subtype                10 non-null     object 
+[2025-11-20T11:36:00.838+0000] {docker.py:438} INFO -  4   bedroomCount           9 non-null      float64
+[2025-11-20T11:36:00.838+0000] {docker.py:438} INFO -  5   province               10 non-null     object 
+[2025-11-20T11:36:00.838+0000] {docker.py:438} INFO -  6   locality               10 non-null     int64  
+[2025-11-20T11:36:00.839+0000] {docker.py:438} INFO -  7   postCode               10 non-null     int64  
+[2025-11-20T11:36:00.839+0000] {docker.py:438} INFO -  8   habitableSurface       9 non-null      float64
+[2025-11-20T11:36:00.839+0000] {docker.py:438} INFO -  9   buildingCondition      0 non-null      float64
+[2025-11-20T11:36:00.840+0000] {docker.py:438} INFO -  10  hasGarden              10 non-null     int64  
+[2025-11-20T11:36:00.840+0000] {docker.py:438} INFO -  11  gardenSurface          10 non-null     float64
+[2025-11-20T11:36:00.840+0000] {docker.py:438} INFO -  12  hasTerrace             10 non-null     int64  
+[2025-11-20T11:36:00.841+0000] {docker.py:438} INFO -  13  epcScore               7 non-null      object 
+[2025-11-20T11:36:00.841+0000] {docker.py:438} INFO -  14  price                  10 non-null     float64
+[2025-11-20T11:36:00.841+0000] {docker.py:438} INFO -  15  hasParking             10 non-null     int64  
+[2025-11-20T11:36:00.841+0000] {docker.py:438} INFO -  16  MunicipalityCleanName  10 non-null     int64  
+[2025-11-20T11:36:00.842+0000] {docker.py:438} INFO -  17  region                 10 non-null     object 
+[2025-11-20T11:36:00.842+0000] {docker.py:438} INFO -  18  price_square_meter     9 non-null      float64
+[2025-11-20T11:36:00.843+0000] {docker.py:438} INFO -  19  last_seen              10 non-null     object 
+[2025-11-20T11:36:00.843+0000] {docker.py:438} INFO - dtypes: float64(7), int64(6), object(7)
+[2025-11-20T11:36:00.844+0000] {docker.py:438} INFO - memory usage: 1.7+ KB
+[2025-11-20T11:36:00.844+0000] {docker.py:438} INFO - None
+[2025-11-20T11:36:02.018+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-11-20T11:36:02.020+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=immoeliza_pipeline, task_id=run_model_training, run_id=manual__2025-11-20T11:34:14+00:00, execution_date=20251120T113414, start_date=20251120T113551, end_date=20251120T113602
+[2025-11-20T11:36:02.096+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-11-20T11:36:02.137+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-11-20T11:36:02.141+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

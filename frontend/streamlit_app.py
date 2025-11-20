@@ -7,6 +7,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import requests
+import os
 from pathlib import Path
 
 # Configuration
@@ -16,7 +17,7 @@ st.set_page_config(
     layout="wide"
 )
 
-API_URL = "http://localhost:8000"
+API_URL = os.getenv("API_URL", "http://api:8000")
 
 # Load data for analysis
 @st.cache_data
@@ -155,7 +156,7 @@ with tab1:
             
             except Exception as e:
                 st.error(f"Error connecting to API: {str(e)}")
-                st.info("Make sure the API is running on http://localhost:8000")
+                st.info(f"Make sure the API is running on {API_URL}")
     else:
         st.info("👈 Fill in the property details and click 'Predict Price' to get an estimate")
         

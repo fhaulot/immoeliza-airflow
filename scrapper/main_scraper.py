@@ -15,6 +15,8 @@ import time
 from typing import Dict, Optional, List
 import logging
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import os
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -267,30 +269,51 @@ def extract_property_details(url: str) -> Optional[Dict]:
 
 def scrape_properties_batch(urls: List[str], start_idx: int = 0, batch_size: int = 100, output_file: str = None) -> pd.DataFrame:
     """
-    Scrape a batch of properties and save incrementally.
+    Scrape a batch of properties in parallel using ThreadPoolExecutor.
     """
     end_idx = min(start_idx + batch_size, len(urls))
     batch_urls = urls[start_idx:end_idx]
     
-    logger.info(f"Processing batch {start_idx//batch_size + 1}: properties {start_idx+1}-{end_idx} of {len(urls)}")
+    # Get number of workers from environment (default 8)
+    max_workers = int(os.getenv('SCRAPER_WORKERS', '8'))
+    
+    logger.info(f"Processing batch {start_idx//batch_size + 1}: properties {start_idx+1}-{end_idx} of {len(urls)} (using {max_workers} parallel workers)")
     
     properties_data = []
     
-    for i, url in enumerate(batch_urls, start_idx + 1):
+    def scrape_single_property(url_tuple):
+        """Scrape a single property (for parallel execution)."""
+        i, url = url_tuple
         logger.info(f"Scraping property {i}/{len(urls)}: {url}")
         
         property_data = extract_property_details(url)
         if property_data:
-            properties_data.append(property_data)
             logger.info(f"  ✓ Success: Price={property_data.get('price', 'N/A')}€, "
                        f"Postal={property_data.get('postCode', 'N/A')}, "
                        f"Bedrooms={property_data.get('bedroomCount', 'N/A')}, "
                        f"Surface={property_data.get('habitableSurface', 'N/A')}m²")
+            return property_data
         else:
             logger.warning(f"  ✗ Failed to extract data")
+            return None
+    
+    # Scrape properties in parallel
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Submit all tasks
+        future_to_url = {
+            executor.submit(scrape_single_property, (start_idx + i + 1, url)): url 
+            for i, url in enumerate(batch_urls)
+        }
         
-        # Random delay
-        time.sleep(random.uniform(1, 3))
+        # Collect results as they complete
+        for future in as_completed(future_to_url):
+            try:
+                result = future.result()
+                if result:
+                    properties_data.append(result)
+            except Exception as e:
+                url = future_to_url[future]
+                logger.error(f"Error scraping {url}: {e}")
     
     if properties_data:
         df = pd.DataFrame(properties_data)
@@ -331,33 +354,111 @@ def main():
         urls = urls[:10]
         # Keep the output file from env variable for test mode too
     
-    # Remove existing output file to start fresh
+    # Load existing data if available (incremental scraping)
+    existing_df = pd.DataFrame()
+    existing_urls = set()
+    metrics = {
+        'new_properties': 0,
+        'updated_properties': 0,
+        'removed_properties': 0,
+        'total_properties': 0,
+        'timestamp': pd.Timestamp.now().isoformat()
+    }
+    
     if Path(output_file).exists():
-        Path(output_file).unlink()
+        try:
+            existing_df = pd.read_csv(output_file, encoding='utf-8')
+            existing_urls = set(existing_df['url'].tolist()) if 'url' in existing_df.columns else set()
+            logger.info(f"Loaded {len(existing_df)} existing properties from {output_file}")
+        except Exception as e:
+            logger.warning(f"Could not load existing data: {e}. Starting fresh.")
     
-    # Process in batches
+    # Determine which URLs to scrape (new or changed)
+    current_urls = set(urls)
+    new_urls = list(current_urls - existing_urls)
+    removed_urls = existing_urls - current_urls
+    
+    logger.info(f"\n=== SCRAPING PLAN ===")
+    logger.info(f"Total URLs from source: {len(urls)}")
+    logger.info(f"Existing properties: {len(existing_urls)}")
+    logger.info(f"New URLs to scrape: {len(new_urls)}")
+    logger.info(f"Removed URLs (no longer listed): {len(removed_urls)}")
+    
+    metrics['new_properties'] = len(new_urls)
+    metrics['removed_properties'] = len(removed_urls)
+    
+    # Process in batches (only new URLs)
     all_data = []
-    for start_idx in range(0, len(urls), batch_size):
-        batch_df = scrape_properties_batch(urls, start_idx, batch_size, output_file)
-        if not batch_df.empty:
-            all_data.append(batch_df)
-        
-        # Progress report
-        processed = min(start_idx + batch_size, len(urls))
-        logger.info(f"Progress: {processed}/{len(urls)} URLs processed")
+    if new_urls:
+        for start_idx in range(0, len(new_urls), batch_size):
+            batch_urls = new_urls[start_idx:start_idx + batch_size]
+            # Temporarily save to output file (will be merged later)
+            batch_df = scrape_properties_batch(batch_urls, 0, len(batch_urls), output_file)
+            if not batch_df.empty:
+                all_data.append(batch_df)
+            
+            # Progress report
+            processed = min(start_idx + batch_size, len(new_urls))
+            logger.info(f"Progress: {processed}/{len(new_urls)} new URLs processed")
+    else:
+        logger.info("No new properties to scrape!")
     
-    # Combine all data and show summary
+    # Combine new data with existing data
     if all_data:
-        final_df = pd.concat(all_data, ignore_index=True)
+        new_df = pd.concat(all_data, ignore_index=True)
+        logger.info(f"Successfully scraped {len(new_df)} new properties")
+    else:
+        new_df = pd.DataFrame()
+        logger.info("No new properties scraped")
+    
+    # Add last_seen timestamp to all current properties
+    current_timestamp = pd.Timestamp.now()
+    
+    # Merge: keep existing properties still in current URLs, add new properties
+    if not existing_df.empty:
+        # Keep existing properties that are still in current_urls
+        still_active_df = existing_df[existing_df['url'].isin(current_urls)].copy()
+        
+        # Update last_seen for still active properties
+        if 'last_seen' not in still_active_df.columns:
+            still_active_df['last_seen'] = current_timestamp
+        else:
+            still_active_df['last_seen'] = current_timestamp
+        
+        # Add last_seen to new properties
+        if not new_df.empty:
+            new_df['last_seen'] = current_timestamp
+            final_df = pd.concat([still_active_df, new_df], ignore_index=True)
+        else:
+            final_df = still_active_df
+    else:
+        if not new_df.empty:
+            new_df['last_seen'] = current_timestamp
+            final_df = new_df
+        else:
+            final_df = pd.DataFrame()
+    
+    # Save final data
+    if not final_df.empty:
+        # Remove old output file and save merged data
+        if Path(output_file).exists():
+            Path(output_file).unlink()
+        final_df.to_csv(output_file, index=False, encoding='utf-8')
+        
+        metrics['total_properties'] = len(final_df)
+        metrics['updated_properties'] = len(final_df) - len(new_df)
+        
         logger.info(f"\n=== SCRAPING COMPLETED ===")
-        logger.info(f"Total properties scraped: {len(final_df)}")
-        logger.info(f"Success rate: {len(final_df)}/{len(urls)} ({100*len(final_df)/len(urls):.1f}%)")
+        logger.info(f"Total properties in database: {len(final_df)}")
+        logger.info(f"New properties added: {len(new_df)}")
+        logger.info(f"Properties removed: {len(removed_urls)}")
         logger.info(f"Data saved to: {output_file}")
         
         # Show sample and column info
         logger.info(f"\nColumns: {list(final_df.columns)}")
-        logger.info(f"Sample data:")
-        logger.info(final_df.head().to_string())
+        if not new_df.empty:
+            logger.info(f"\nSample of new properties:")
+            logger.info(new_df.head(3).to_string())
         
         # Show data quality stats
         logger.info(f"\nData quality:")
@@ -365,9 +466,15 @@ def main():
         logger.info(f"Properties with surface: {final_df['habitableSurface'].notna().sum()}")
         logger.info(f"Properties with bedrooms: {final_df['bedroomCount'].notna().sum()}")
         logger.info(f"Properties with EPC: {final_df['epcScore'].notna().sum()}")
-        
     else:
-        logger.error("No properties were successfully scraped!")
+        logger.error("No properties in final dataset!")
+        metrics['total_properties'] = 0
+    
+    # Save metrics to JSON file
+    metrics_file = output_file.replace('.csv', '_metrics.json')
+    with open(metrics_file, 'w', encoding='utf-8') as f:
+        json.dump(metrics, f, indent=2, ensure_ascii=False)
+    logger.info(f"\nMetrics saved to: {metrics_file}")
 
 if __name__ == "__main__":
     main()

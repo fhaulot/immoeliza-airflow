@@ -43,12 +43,12 @@ def run_url_scraper():
             
             # In test mode, only scrape 2 pages per province/type
             test_mode = os.getenv('TEST_MODE', 'true').lower() == 'true'
-            max_pages = 2 if test_mode else 50
+            max_pages = 2 if test_mode else 500  # 500 pages = all properties (~13000 URLs)
             
             for page in range(1, max_pages + 1):
                 immovlan.scrape_page(root_url, page, sales_url)
                 logger.info(f"  {prop_type.capitalize()}s in {province}: Page {page} scraped. Total URLs: {len(sales_url)}")
-                immovlan.time.sleep(1)
+                immovlan.time.sleep(0.5)  # Reduced from 1s to 0.5s
             
             logger.info(f"Finished {prop_type}s in {province}. Total URLs: {len(sales_url)}")
             all_sales_urls.extend(sales_url)

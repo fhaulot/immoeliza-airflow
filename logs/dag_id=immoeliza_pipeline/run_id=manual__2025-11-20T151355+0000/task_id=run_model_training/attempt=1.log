@@ -1,0 +1,119 @@
+[2025-11-20T15:56:52.668+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-11-20T15:56:52.687+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: immoeliza_pipeline.run_model_training manual__2025-11-20T15:13:55+00:00 [queued]>
+[2025-11-20T15:56:52.698+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: immoeliza_pipeline.run_model_training manual__2025-11-20T15:13:55+00:00 [queued]>
+[2025-11-20T15:56:52.699+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 2
+[2025-11-20T15:56:52.716+0000] {taskinstance.py:2889} INFO - Executing <Task(DockerOperator): run_model_training> on 2025-11-20 15:13:55+00:00
+[2025-11-20T15:56:52.727+0000] {logging_mixin.py:190} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=3253) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-11-20T15:56:52.729+0000] {standard_task_runner.py:72} INFO - Started process 3254 to run task
+[2025-11-20T15:56:52.727+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'immoeliza_pipeline', 'run_model_training', 'manual__2025-11-20T15:13:55+00:00', '--job-id', '28', '--raw', '--subdir', 'DAGS_FOLDER/immoeliza_dag.py', '--cfg-path', '/tmp/tmpo_30s0vs']
+[2025-11-20T15:56:52.730+0000] {standard_task_runner.py:105} INFO - Job 28: Subtask run_model_training
+[2025-11-20T15:56:52.806+0000] {task_command.py:467} INFO - Running <TaskInstance: immoeliza_pipeline.run_model_training manual__2025-11-20T15:13:55+00:00 [running]> on host 3aa706c10241
+[2025-11-20T15:56:52.916+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='immoeliza_pipeline' AIRFLOW_CTX_TASK_ID='run_model_training' AIRFLOW_CTX_EXECUTION_DATE='2025-11-20T15:13:55+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-11-20T15:13:55+00:00'
+[2025-11-20T15:56:52.917+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-11-20T15:56:53.029+0000] {docker.py:367} INFO - Starting docker container from image immoeliza-***-model-training:latest
+[2025-11-20T15:56:53.038+0000] {docker.py:375} WARNING - Using remote engine or docker-in-docker and mounting temporary volume from host is not supported. Falling back to `mount_tmp_dir=False` mode. You can set `mount_tmp_dir` parameter to False to disable mounting and remove the warning
+[2025-11-20T15:56:57.573+0000] {docker.py:438} INFO - 2025-11-20 15:56:57,572 - matplotlib.font_manager - INFO - generated new fontManager
+[2025-11-20T15:57:04.319+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,318 - ImmoEliza-Training - INFO - STARTING PRODUCTION TRAINING PIPELINE
+[2025-11-20T15:57:04.320+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,318 - ImmoEliza-Training - INFO - STEP 1: Analysis Preprocessing
+[2025-11-20T15:57:04.321+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,318 - analyse.Preprocessing - INFO - === Starting Analysis Preprocessing Pipeline ===
+[2025-11-20T15:57:04.437+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,434 - analyse.Preprocessing - INFO - Loaded dataset with shape: (16361, 20)
+[2025-11-20T15:57:04.437+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,435 - analyse.Preprocessing - INFO - Columns: ['id', 'url', 'type', 'subtype', 'bedroomCount', 'province', 'locality', 'postCode', 'habitableSurface', 'buildingCondition', 'hasGarden', 'gardenSurface', 'hasTerrace', 'epcScore', 'price', 'hasParking', 'MunicipalityCleanName', 'region', 'price_square_meter', 'last_seen']
+[2025-11-20T15:57:04.467+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,465 - analyse.Preprocessing - INFO - Starting initial data cleaning...
+[2025-11-20T15:57:04.472+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,470 - analyse.Preprocessing - INFO - Removed 0 rows with missing price or postal code
+[2025-11-20T15:57:04.476+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,474 - analyse.Preprocessing - INFO - Removed price outliers, remaining rows: 16331
+[2025-11-20T15:57:04.478+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,477 - analyse.Preprocessing - INFO - Removed surface outliers, remaining rows: 16221
+[2025-11-20T15:57:04.481+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,480 - analyse.Preprocessing - INFO - Removed bedroom outliers, remaining rows: 16216
+[2025-11-20T15:57:04.482+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,480 - analyse.Preprocessing - INFO - Handling missing values...
+[2025-11-20T15:57:04.543+0000] {docker.py:438} INFO - /app/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1214: RuntimeWarning: Mean of empty slice
+[2025-11-20T15:57:04.544+0000] {docker.py:438} INFO -   return np.nanmean(a, axis, out=out, keepdims=keepdims)
+[2025-11-20T15:57:04.652+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,650 - analyse.Preprocessing - INFO - Adding derived features...
+[2025-11-20T15:57:04.663+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,662 - analyse.Preprocessing - INFO - Applied ordinal encoding to building condition
+[2025-11-20T15:57:04.666+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,664 - analyse.Preprocessing - INFO - Applied ordinal encoding to EPC score
+[2025-11-20T15:57:04.695+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,693 - analyse.Preprocessing - INFO - Applied one-hot encoding to: ['province', 'subtype', 'type', 'region']
+[2025-11-20T15:57:04.696+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,694 - analyse.Preprocessing - INFO - Preparing data for analysis...
+[2025-11-20T15:57:04.713+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,712 - analyse.Preprocessing - INFO - Prepared analysis dataset with 29 columns
+[2025-11-20T15:57:04.714+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,712 - analyse.Preprocessing - INFO - Final shape: (16216, 29)
+[2025-11-20T15:57:04.916+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,914 - analyse.Preprocessing - INFO - Analysis-ready data saved to: /app/analyse/processed_for_analysis.csv
+[2025-11-20T15:57:04.918+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,916 - ImmoEliza-Training - INFO - Analysis preprocessing complete. Output shape: (16216, 29)
+[2025-11-20T15:57:04.919+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,916 - ImmoEliza-Training - INFO - STEP 2: Model Preprocessing
+[2025-11-20T15:57:04.920+0000] {docker.py:438} INFO - 2025-11-20 15:57:04,916 - model.Preprocessing - INFO - === Starting Model Preprocessing Pipeline ===
+[2025-11-20T15:57:05.013+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,011 - model.Preprocessing - INFO - Loaded dataset with shape: (16361, 20)
+[2025-11-20T15:57:05.014+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,011 - model.Preprocessing - INFO - Columns: ['id', 'url', 'type', 'subtype', 'bedroomCount', 'province', 'locality', 'postCode', 'habitableSurface', 'buildingCondition', 'hasGarden', 'gardenSurface', 'hasTerrace', 'epcScore', 'price', 'hasParking', 'MunicipalityCleanName', 'region', 'price_square_meter', 'last_seen']
+[2025-11-20T15:57:05.015+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,011 - model.Preprocessing - INFO - Starting model-specific data cleaning...
+[2025-11-20T15:57:05.016+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,015 - model.Preprocessing - INFO - Removed 1393 rows with missing critical data
+[2025-11-20T15:57:05.020+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,018 - model.Preprocessing - INFO - Applied strict price filtering, remaining rows: 14793
+[2025-11-20T15:57:05.023+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,021 - model.Preprocessing - INFO - Applied strict surface filtering, remaining rows: 14453
+[2025-11-20T15:57:05.025+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,024 - model.Preprocessing - INFO - Applied bedroom filtering, remaining rows: 14373
+[2025-11-20T15:57:05.030+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,029 - model.Preprocessing - INFO - Removed price/sqm outliers, remaining rows: 14085
+[2025-11-20T15:57:05.033+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,031 - model.Preprocessing - INFO - Applied ordinal encoding to building condition
+[2025-11-20T15:57:05.034+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,033 - model.Preprocessing - INFO - Applied ordinal encoding to EPC score
+[2025-11-20T15:57:05.035+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,033 - model.Preprocessing - INFO - Preparing features for ML model...
+[2025-11-20T15:57:05.045+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,043 - model.Preprocessing - INFO - Selected 7 numeric and 6 categorical features
+[2025-11-20T15:57:05.046+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,044 - model.Preprocessing - INFO - Feature columns: ['habitableSurface', 'bedroomCount', 'postCode', 'hasGarden', 'gardenSurface', 'hasTerrace', 'hasParking', 'type', 'subtype', 'province', 'region', 'buildingCondition', 'epcScore']
+[2025-11-20T15:57:05.047+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,044 - model.Preprocessing - INFO - Encoding categorical columns: ['type', 'subtype', 'province', 'region']
+[2025-11-20T15:57:05.058+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,056 - model.Preprocessing - INFO - Final encoded shape: (14085, 29)
+[2025-11-20T15:57:05.067+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,065 - model.Preprocessing - INFO - Train set shape: (11268, 29)
+[2025-11-20T15:57:05.068+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,065 - model.Preprocessing - INFO - Test set shape: (2817, 29)
+[2025-11-20T15:57:05.080+0000] {docker.py:438} INFO - 2025-11-20 15:57:05,078 - model.Preprocessing - INFO - Fitted scaler on training data
+[2025-11-20T15:57:06.131+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,124 - model.Preprocessing - INFO - Saved scaler to /app/model/processed_data/scaler.pkl
+[2025-11-20T15:57:06.134+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,129 - model.Preprocessing - INFO - Saved feature columns to /app/model/processed_data/feature_columns.csv
+[2025-11-20T15:57:06.135+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,129 - model.Preprocessing - INFO - Model-ready data saved to: /app/model/processed_data
+[2025-11-20T15:57:06.136+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,129 - model.Preprocessing - INFO - Final feature count: 29
+[2025-11-20T15:57:06.138+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,131 - ImmoEliza-Training - INFO - Model preprocessing complete.
+[2025-11-20T15:57:06.139+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,131 - ImmoEliza-Training - INFO - Training set: (11268, 29), Test set: (2817, 29)
+[2025-11-20T15:57:06.140+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,131 - ImmoEliza-Training - INFO - STEP 3: Model Training
+[2025-11-20T15:57:06.141+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,132 - model.pipeline - INFO - Created 6 model pipelines
+[2025-11-20T15:57:06.142+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,132 - model.pipeline - INFO - Training and evaluating models...
+[2025-11-20T15:57:06.143+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,132 - model.pipeline - INFO - Training Linear Regression...
+[2025-11-20T15:57:06.407+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,405 - model.pipeline - INFO -   Linear Regression - Test R²: 0.6300, Test MAE: 99361
+[2025-11-20T15:57:06.408+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,405 - model.pipeline - INFO - Training Ridge Regression...
+[2025-11-20T15:57:06.538+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,536 - model.pipeline - INFO -   Ridge Regression - Test R²: 0.6300, Test MAE: 99360
+[2025-11-20T15:57:06.539+0000] {docker.py:438} INFO - 2025-11-20 15:57:06,536 - model.pipeline - INFO - Training Random Forest...
+[2025-11-20T15:57:19.362+0000] {docker.py:438} INFO - 2025-11-20 15:57:19,360 - model.pipeline - INFO -   Random Forest - Test R²: 0.7397, Test MAE: 80710
+[2025-11-20T15:57:19.363+0000] {docker.py:438} INFO - 2025-11-20 15:57:19,360 - model.pipeline - INFO - Training Gradient Boosting...
+[2025-11-20T15:57:30.110+0000] {docker.py:438} INFO - 2025-11-20 15:57:30,109 - model.pipeline - INFO -   Gradient Boosting - Test R²: 0.7663, Test MAE: 74454
+[2025-11-20T15:57:30.111+0000] {docker.py:438} INFO - 2025-11-20 15:57:30,109 - model.pipeline - INFO - Training Polynomial Regression...
+[2025-11-20T15:57:34.810+0000] {docker.py:438} INFO - 2025-11-20 15:57:34,804 - model.pipeline - INFO -   Polynomial Regression - Test R²: 0.5582, Test MAE: 87278
+[2025-11-20T15:57:34.819+0000] {docker.py:438} INFO - 2025-11-20 15:57:34,804 - model.pipeline - INFO - Training XGBoost...
+[2025-11-20T15:57:47.301+0000] {docker.py:438} INFO - 2025-11-20 15:57:47,300 - model.pipeline - INFO -   XGBoost - Test R²: 0.7745, Test MAE: 72506
+[2025-11-20T15:57:47.302+0000] {docker.py:438} INFO - 2025-11-20 15:57:47,300 - model.pipeline - INFO - Best model: XGBoost with R² = 0.7745
+[2025-11-20T15:57:47.304+0000] {docker.py:438} INFO - 2025-11-20 15:57:47,300 - ImmoEliza-Training - INFO - Model training complete. Best model: XGBoost
+[2025-11-20T15:57:47.314+0000] {docker.py:438} INFO - 2025-11-20 15:57:47,312 - model.pipeline - INFO - Saved best model (XGBoost) to /app/model/trained_models/best_model.pkl
+[2025-11-20T15:57:47.317+0000] {docker.py:438} INFO - 2025-11-20 15:57:47,315 - model.pipeline - INFO - Saved model metadata to /app/model/trained_models/model_metadata.csv
+[2025-11-20T15:57:47.423+0000] {docker.py:438} INFO - 2025-11-20 15:57:47,420 - model.pipeline - INFO - Saved all models to /app/model/trained_models/all_models
+[2025-11-20T15:57:47.429+0000] {docker.py:438} INFO - 2025-11-20 15:57:47,424 - model.pipeline - INFO - Saved detailed results to /app/model/trained_models/detailed_results.csv
+[2025-11-20T15:57:47.430+0000] {docker.py:438} INFO - 2025-11-20 15:57:47,424 - ImmoEliza-Training - INFO - Models saved to /app/model/trained_models
+[2025-11-20T15:57:47.430+0000] {docker.py:438} INFO - 2025-11-20 15:57:47,424 - ImmoEliza-Training - INFO - TRAINING PIPELINE COMPLETED SUCCESSFULLY
+[2025-11-20T15:57:47.431+0000] {docker.py:438} INFO - <class 'pandas.core.frame.DataFrame'>
+[2025-11-20T15:57:47.431+0000] {docker.py:438} INFO - RangeIndex: 16361 entries, 0 to 16360
+[2025-11-20T15:57:47.432+0000] {docker.py:438} INFO - Data columns (total 20 columns):
+[2025-11-20T15:57:47.432+0000] {docker.py:438} INFO -  #   Column                 Non-Null Count  Dtype  
+[2025-11-20T15:57:47.433+0000] {docker.py:438} INFO - ---  ------                 --------------  -----  
+[2025-11-20T15:57:47.433+0000] {docker.py:438} INFO -  0   id                     16361 non-null  float64
+[2025-11-20T15:57:47.434+0000] {docker.py:438} INFO -  1   url                    16361 non-null  object 
+[2025-11-20T15:57:47.434+0000] {docker.py:438} INFO -  2   type                   16361 non-null  object 
+[2025-11-20T15:57:47.435+0000] {docker.py:438} INFO -  3   subtype                16361 non-null  object 
+[2025-11-20T15:57:47.435+0000] {docker.py:438} INFO -  4   bedroomCount           16010 non-null  float64
+[2025-11-20T15:57:47.436+0000] {docker.py:438} INFO -  5   province               16361 non-null  object 
+[2025-11-20T15:57:47.436+0000] {docker.py:438} INFO -  6   locality               16361 non-null  int64  
+[2025-11-20T15:57:47.437+0000] {docker.py:438} INFO -  7   postCode               16361 non-null  int64  
+[2025-11-20T15:57:47.437+0000] {docker.py:438} INFO -  8   habitableSurface       15200 non-null  float64
+[2025-11-20T15:57:47.438+0000] {docker.py:438} INFO -  9   buildingCondition      750 non-null    object 
+[2025-11-20T15:57:47.438+0000] {docker.py:438} INFO -  10  hasGarden              16361 non-null  int64  
+[2025-11-20T15:57:47.439+0000] {docker.py:438} INFO -  11  gardenSurface          16361 non-null  float64
+[2025-11-20T15:57:47.439+0000] {docker.py:438} INFO -  12  hasTerrace             16361 non-null  int64  
+[2025-11-20T15:57:47.440+0000] {docker.py:438} INFO -  13  epcScore               12904 non-null  object 
+[2025-11-20T15:57:47.440+0000] {docker.py:438} INFO -  14  price                  16361 non-null  float64
+[2025-11-20T15:57:47.441+0000] {docker.py:438} INFO -  15  hasParking             16361 non-null  int64  
+[2025-11-20T15:57:47.441+0000] {docker.py:438} INFO -  16  MunicipalityCleanName  16361 non-null  int64  
+[2025-11-20T15:57:47.441+0000] {docker.py:438} INFO -  17  region                 16361 non-null  object 
+[2025-11-20T15:57:47.442+0000] {docker.py:438} INFO -  18  price_square_meter     15199 non-null  float64
+[2025-11-20T15:57:47.442+0000] {docker.py:438} INFO -  19  last_seen              16361 non-null  object 
+[2025-11-20T15:57:47.443+0000] {docker.py:438} INFO - dtypes: float64(6), int64(6), object(8)
+[2025-11-20T15:57:47.443+0000] {docker.py:438} INFO - memory usage: 2.5+ MB
+[2025-11-20T15:57:47.444+0000] {docker.py:438} INFO - None
+[2025-11-20T15:57:48.256+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-11-20T15:57:48.260+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=immoeliza_pipeline, task_id=run_model_training, run_id=manual__2025-11-20T15:13:55+00:00, execution_date=20251120T151355, start_date=20251120T155652, end_date=20251120T155748
+[2025-11-20T15:57:48.342+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-11-20T15:57:48.371+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-11-20T15:57:48.374+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

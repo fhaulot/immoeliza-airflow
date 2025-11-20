@@ -14,7 +14,7 @@ services:
       - URLS_FILE=/app/data/immovlan_sales_urls.txt
       - OUTPUT_FILE=/app/data/immovlan_scraped_data.csv
       - BATCH_SIZE=100
-      - TEST_MODE=true
+      - TEST_MODE=false
     networks:
       - immoeliza-network
 
