@@ -13,8 +13,10 @@ from bs4 import BeautifulSoup
 
 # List of provinces and property types in English
 provinces = [
-    "brussels", "vlaams-brabant", "brabant-wallon", "liege", "namur",
+    "brussels", "vlaams-brabant", "brabant-wallon", "liège", "namur",
     "hainaut", "luxembourg", "east-flanders", "west-flanders", "limburg"
+
+
 ]
 property_types = ["house", "apartment"]
 
@@ -23,7 +25,14 @@ headers = {
 }
 
 def accept_cookies():
-    driver = uc.Chrome()
+    options = uc.ChromeOptions()
+    options.add_argument('--headless=new')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-gpu')
+    
+    # Let undetected-chromedriver auto-detect the Chrome version
+    driver = uc.Chrome(options=options)
     driver.get("https://immovlan.be/en/real-estate?transactiontypes=for-sale,in-public-sale&propertytypes=house,apartment")
     time.sleep(8)
     try:

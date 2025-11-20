@@ -116,10 +116,17 @@ class ModelPipeline:
                 train_rmse = np.sqrt(mean_squared_error(y_train, y_train_pred))
                 test_rmse = np.sqrt(mean_squared_error(y_test, y_test_pred))
                 
-                # Cross-validation score
-                cv_scores = cross_val_score(pipeline, X_train, y_train, cv=5, scoring='r2')
-                cv_mean = cv_scores.mean()
-                cv_std = cv_scores.std()
+                # Cross-validation score (adapt cv to dataset size)
+                n_samples = len(X_train)
+                cv_folds = min(5, n_samples)  # Use fewer folds for small datasets
+                
+                if cv_folds >= 2:
+                    cv_scores = cross_val_score(pipeline, X_train, y_train, cv=cv_folds, scoring='r2')
+                    cv_mean = cv_scores.mean()
+                    cv_std = cv_scores.std()
+                else:
+                    cv_mean = test_r2  # Fallback to test score
+                    cv_std = 0.0
                 
                 results[model_name] = {
                     'pipeline': pipeline,
@@ -137,9 +144,13 @@ class ModelPipeline:
                 
                 logger.info(f"  {model_name} - Test R²: {test_r2:.4f}, Test MAE: {test_mae:.0f}")
                 
-                # Track best model
-                if test_r2 > self.best_score:
+                # Track best model (handle NaN values)
+                if not np.isnan(test_r2) and test_r2 > self.best_score:
                     self.best_score = test_r2
+                    self.best_model = pipeline
+                    self.best_model_name = model_name
+                elif self.best_model is None:  # No valid model yet, use current as fallback
+                    self.best_score = test_r2 if not np.isnan(test_r2) else -np.inf
                     self.best_model = pipeline
                     self.best_model_name = model_name
                     

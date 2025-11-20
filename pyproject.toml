@@ -1,0 +1,63 @@
+[project]
+name = "immoeliza-airflow"
+version = "0.1.0"
+description = "Belgian Real Estate Price Prediction with ML Pipeline"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+authors = [
+    { name = "Floriane Haulot", email = "fhaulot@example.com" }
+]
+dependencies = [
+    "attrs>=25.4.0",
+    "babel>=2.17.0",
+    "beautifulsoup4>=4.14.2",
+    "blinker>=1.9.0",
+    "certifi>=2025.11.12",
+    "chardet>=5.2.0",
+    "click>=8.3.1",
+    "colorama>=0.4.6",
+    "configobj>=5.0.9",
+    "cryptography>=46.0.3",
+    "defer>=1.0.4",
+    "fake-headers>=1.0.2",
+    "fastapi>=0.121.2",
+    "httplib2>=0.31.0",
+    "idna>=3.11",
+    "jinja2>=3.1.6",
+    "jsonpatch>=1.33",
+    "jsonpointer>=3.0.0",
+    "jsonschema>=4.25.1",
+    "markdown-it-py>=4.0.0",
+    "markupsafe>=3.0.3",
+    "mdurl>=0.1.2",
+    "netaddr>=1.3.0",
+    "oauthlib>=3.3.1",
+    "olefile>=0.47",
+    "pandas>=2.3.3",
+    "pexpect>=4.9.0",
+    "pillow>=12.0.0",
+    "plotly>=6.5.0",
+    "ptyprocess>=0.7.0",
+    "pygments>=2.19.2",
+    "pyjwt>=2.10.1",
+    "pyparsing>=3.2.5",
+    "pyrsistent>=0.20.0",
+    "pyserial>=3.5",
+    "python-dateutil>=2.9.0.post0",
+    "pytz>=2025.2",
+    "pyyaml>=6.0.3",
+    "reflex>=0.8.20",
+    "requests>=2.32.5",
+    "rich>=14.2.0",
+    "scikit-learn>=1.7.2",
+    "seaborn>=0.13.2",
+    "setuptools>=80.9.0",
+    "six>=1.17.0",
+    "streamlit>=1.51.0",
+    "typing-extensions>=4.15.0",
+    "undetected-chromedriver>=3.5.5",
+    "urllib3>=2.5.0",
+    "uvicorn>=0.38.0",
+    "wadllib>=2.0.0",
+    "wheel>=0.45.1",
+]

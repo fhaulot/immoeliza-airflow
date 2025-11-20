@@ -1,0 +1,182 @@
+services:
+  # Web Scraper Service
+  scraper:
+    image: immoeliza-airflow-scraper:latest
+    profiles: ["job"]
+    build:
+      context: .
+      dockerfile: scrapper/Dockerfile
+    container_name: immoeliza-scraper
+    volumes:
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+      - URLS_FILE=/app/data/immovlan_sales_urls.txt
+      - OUTPUT_FILE=/app/data/immovlan_scraped_data.csv
+      - BATCH_SIZE=100
+      - TEST_MODE=true
+    networks:
+      - immoeliza-network
+
+  # ML Model Training Service
+  model-training:
+    image: immoeliza-airflow-model-training:latest
+    profiles: ["job"]
+    build:
+      context: .
+      dockerfile: model/Dockerfile
+    container_name: immoeliza-model-training
+    volumes:
+      - ./model/trained_models:/app/model/trained_models
+      - ./model/processed_data:/app/model/processed_data
+      - ./analyse:/app/analyse
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - immoeliza-network
+
+  # FastAPI Backend
+  api:
+    build:
+      context: .
+      dockerfile: deployment/Dockerfile
+    container_name: immoeliza-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./model/trained_models:/app/model/trained_models
+      - ./model/processed_data:/app/model/processed_data
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - immoeliza-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Streamlit Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: immoeliza-frontend
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./analyse:/app/analyse
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - api
+    networks:
+      - immoeliza-network
+    restart: unless-stopped
+
+  # Airflow Services
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
+      retries: 5
+    networks:
+      - immoeliza-network
+
+  airflow-webserver:
+    build:
+      context: .
+      dockerfile: airflow/Dockerfile
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__FERNET_KEY=FB0o_zt4e3ZkkkT3TcQXCOhW8dM6qXoS9hw01b48kU8=
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW_CONN_DOCKER_DEFAULT=docker://unix://var/run/docker.sock
+    volumes:
+      - ./DAG:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    networks:
+      - immoeliza-network
+
+  airflow-scheduler:
+    build:
+      context: .
+      dockerfile: airflow/Dockerfile
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__FERNET_KEY=FB0o_zt4e3ZkkkT3TcQXCOhW8dM6qXoS9hw01b48kU8=
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW_CONN_DOCKER_DEFAULT=docker://unix://var/run/docker.sock
+    volumes:
+      - ./DAG:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - immoeliza-network
+
+  airflow-init:
+    build:
+      context: .
+      dockerfile: airflow/Dockerfile
+    entrypoint: /bin/bash
+    # The command initializes the DB and creates a default user
+    command:
+      - -c
+      - |
+        airflow db init
+        airflow users create \
+          --username admin \
+          --firstname Admin \
+          --lastname User \
+          --role Admin \
+          --email admin@example.com \
+          --password admin
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - immoeliza-network
+
+networks:
+  immoeliza-network:
+    driver: bridge
+
+volumes:
+  data:
+  model-data:
+  postgres-db-volume:

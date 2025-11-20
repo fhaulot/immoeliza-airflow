@@ -4,7 +4,7 @@ import pandas as pd
 from fake_headers import Headers
 import random
 import time
-from scrapper.immovlan import sales_url
+from immovlan import sales_url
 
 """ Importing modules :
 Requests : to get the url

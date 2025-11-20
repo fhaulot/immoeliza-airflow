@@ -1,0 +1,72 @@
+# .dockerignore - Optimize Docker build by excluding unnecessary files
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# UV
+.uv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Data files (ne pas inclure dans l'image)
+*.csv
+*.txt
+*.pkl
+!requirements.txt
+
+# Logs
+*.log
+logs/
+
+# Documentation
+*.md
+!README.md
+
+# Tests
+tests/
+.pytest_cache/
+
+# Notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# Model artifacts (seront générés dans le conteneur)
+model/trained_models/
+model/processed_data/
+analyse/processed_for_analysis.csv
+analyse/cleaned_data.csv
+
+# Temp files
+*.tmp
+*.temp
+.cache/
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore

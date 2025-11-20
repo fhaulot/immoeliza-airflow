@@ -1,0 +1,11 @@
+id,url,type,subtype,bedroomCount,province,locality,postCode,habitableSurface,buildingCondition,hasGarden,gardenSurface,hasTerrace,epcScore,price,hasParking,MunicipalityCleanName,region,price_square_meter
+2252583.0,https://immovlan.be/en/detail/residence/for-sale/6830/bouillon/vbd54999,HOUSE,HOUSE,4.0,Hainaut,6830,6830,101.0,,1,250.0,1,E,550000.0,1,6830,Wallonia,5445.544554455446
+39837227.0,https://immovlan.be/en/detail/apartment/for-sale/4101/jemeppe/vbd50532,APARTMENT,APARTMENT,1.0,Liège,4101,4101,50.0,,0,0.0,1,C,109000.0,0,4101,Wallonia,2180.0
+52191791.0,https://immovlan.be/en/detail/residence/for-sale/3800/sint-truiden/rbu73433,HOUSE,HOUSE,4.0,Limburg,3800,3800,216.0,,0,0.0,1,A,495000.0,0,3800,Flanders,2291.6666666666665
+73197567.0,https://immovlan.be/en/detail/villa/for-sale/4860/pepinster/vbd54767,HOUSE,VILLA,3.0,Liège,4860,4860,320.0,,0,0.0,1,A,639000.0,0,4860,Wallonia,1996.875
+56999392.0,https://immovlan.be/en/detail/residence/for-sale/6210/les-bons-villers/vbd52102,HOUSE,HOUSE,3.0,Hainaut,6210,6210,193.0,,0,0.0,1,,485000.0,0,6210,Wallonia,2512.9533678756475
+8653688.0,https://immovlan.be/en/detail/residence/for-sale/1040/etterbeek/vbd54993,HOUSE,HOUSE,4.0,Brussels,1040,1040,239.0,,1,70.0,1,D,710000.0,0,1040,Brussels,2970.7112970711296
+85263363.0,https://immovlan.be/en/detail/residence/for-sale/4280/hannut/vbd54761,HOUSE,HOUSE,5.0,Liège,4280,4280,160.0,,0,0.0,0,,516352.0,0,4280,Wallonia,3227.2
+52673158.0,https://immovlan.be/en/detail/ground-floor/for-sale/3070/kortenberg/rbu71620,HOUSE,HOUSE,2.0,Vlaams-Brabant,3070,3070,72.0,,0,0.0,1,D,250000.0,0,3070,Flanders,3472.222222222222
+63860705.0,https://immovlan.be/en/detail/residence/for-sale/1140/evere/vbd55022,HOUSE,HOUSE,4.0,Brussels,1140,1140,175.0,,1,60.0,1,F,599000.0,0,1140,Brussels,3422.8571428571427
+40449535.0,https://immovlan.be/en/detail/residence/for-sale/9032/wondelgem/rbu71078,HOUSE,HOUSE,2.0,East-Flanders,9032,9032,150.0,,1,0.0,1,E,475000.0,1,9032,Flanders,3166.6666666666665

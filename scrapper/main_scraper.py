@@ -314,11 +314,12 @@ def load_urls_from_file(file_path: str) -> List[str]:
 
 def main():
     """Main function to scrape all properties."""
-    # Configuration
-    urls_file = '/home/floriane/GitHub/immoeliza-airflow/immovlan_sales_urls.txt'
-    output_file = '/home/floriane/GitHub/immoeliza-airflow/immovlan_scraped_data.csv'
-    batch_size = 100
-    test_mode = True  # Set to False for full scraping
+    # Configuration - use environment variables or defaults
+    import os
+    urls_file = os.getenv('URLS_FILE', '/app/data/immovlan_sales_urls.txt')
+    output_file = os.getenv('OUTPUT_FILE', '/app/data/immovlan_scraped_data.csv')
+    batch_size = int(os.getenv('BATCH_SIZE', '100'))
+    test_mode = os.getenv('TEST_MODE', 'true').lower() == 'true'
     
     # Load URLs
     urls = load_urls_from_file(urls_file)
@@ -327,8 +328,8 @@ def main():
     if test_mode:
         # Test with first 50 properties
         logger.info("=== RUNNING IN TEST MODE (first 50 properties) ===")
-        urls = urls[:50]
-        output_file = '/home/floriane/GitHub/immoeliza-airflow/immovlan_scraped_data_test.csv'
+        urls = urls[:10]
+        # Keep the output file from env variable for test mode too
     
     # Remove existing output file to start fresh
     if Path(output_file).exists():
