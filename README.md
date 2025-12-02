@@ -269,21 +269,30 @@ uv sync
 
 #### Run Components
 ```bash
-# Scraping
+# 1. Scraping (2-phase: URLs + details)
 uv run python scrapper/run_scraper.py
 
-# Preprocessing
-uv run python -c "from analyse.Preprocessing import AnalysisPreprocessing; AnalysisPreprocessing().full_preprocessing_pipeline()"
-uv run python -c "from model.Preprocessing import ModelPreprocessing; ModelPreprocessing().full_preprocessing_pipeline()"
+# 2. Analysis Preprocessing
+uv run python -c "
+from analyse.Preprocessing import AnalysisPreprocessing
+processor = AnalysisPreprocessing()
+processor.full_preprocessing_pipeline(
+    input_path='data/immovlan_scraped_data.csv',
+    output_path='analyse/processed_for_analysis.csv'
+)
+"
 
-# Training
+# 3. Model Preprocessing + Training (complete pipeline)
+uv run python test_pipeline.py
+
+# Or run training only (requires processed data)
 uv run python model/train.py
 
-# API
+# 4. Start API server
 uv run uvicorn deployment.app:app --reload --port 8000
 
-# Frontend
-uv run streamlit run frontend/streamlit_app.py
+# 5. Start Streamlit dashboard
+uv run streamlit run frontend/streamlit_app.py --server.port 8501
 ```
 
 **Note**: UV automatically creates and manages the virtual environment. No need to manually activate it - just prefix your commands with `uv run`.
@@ -381,24 +390,52 @@ http://localhost:8000
 
 ## 🎛️ Airflow Configuration
 
-The project is structured for easy integration with Apache Airflow. Each pipeline step can be transformed into an Airflow task:
+The pipeline is fully orchestrated using Apache Airflow with Docker containers.
 
+### DAG Structure
+
+**File**: `DAG/immoeliza_dag.py`
+
+**Schedule**: `0 0 * * 1-5` (Midnight, Monday-Friday)
+
+**Tasks**:
+1. **run_scraper** → Scrapes property data using `DockerOperator`
+2. **cleanup_old_properties** → Removes properties not seen in 30 days
+3. **run_model_training** → Trains 6 ML models and selects best
+
+**Key Features**:
+- Uses `DockerOperator` to run containers as Airflow tasks
+- Shared Docker volumes for data persistence
+- Automatic dependency management (`run_scraper >> cleanup_old_properties >> run_model_training`)
+- Environment variable configuration
+
+**Example Task Definition**:
 ```python
-# Airflow DAG example
-from airflow import DAG
-from airflow.operators.python import PythonOperator
+from airflow.providers.docker.operators.docker import DockerOperator
+from docker.types import Mount
 
-def scraping_task():
-    from scrapper.main_scraper import full_preprocessing_pipeline
-    return full_preprocessing_pipeline(max_properties=100)
-
-def analysis_preprocessing_task():
-    from analyse.Preprocessing import AnalysisPreprocessing
-    processor = AnalysisPreprocessing()
-    return processor.full_preprocessing_pipeline()
-
-# ... define other tasks
+run_scraper = DockerOperator(
+    task_id='run_scraper',
+    image='immoeliza-airflow-scraper:latest',
+    command='uv run python scrapper/run_scraper.py',
+    docker_url='unix://var/run/docker.sock',
+    network_mode='immoeliza-airflow_immoeliza-network',
+    mounts=[
+        Mount(source='immoeliza-airflow_data', 
+              target='/app/data', 
+              type='volume'),
+    ],
+    environment={
+        'TEST_MODE': 'false',
+        'SCRAPER_WORKERS': '8',
+    },
+)
 ```
+
+**Monitoring**:
+- View DAG graph: http://localhost:8080/dags/immoeliza_pipeline/graph
+- Check task logs: Click on task → View Log
+- Manual trigger: DAGs → immoeliza_pipeline → Trigger DAG
 
 ## 📈 Model Performance
 
@@ -689,16 +726,6 @@ docker-compose up -d
 - **Streamlit Documentation**: https://docs.streamlit.io/
 - **XGBoost Documentation**: https://xgboost.readthedocs.io/
 - **UV Package Manager**: https://github.com/astral-sh/uv
-
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📝 Authors
 
